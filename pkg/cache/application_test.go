@@ -1093,13 +1093,13 @@ func TestPlaceholderTimeoutEvents(t *testing.T) {
 
 	pod := &v1.Pod{
 		TypeMeta: apis.TypeMeta{
-			Kind: "Pod",
+			Kind:       "Pod",
 			APIVersion: "v1",
 		},
 		ObjectMeta: apis.ObjectMeta{
-			Name: "pod00002",
+			Name:      "pod00002",
 			Namespace: "default",
-			UID: "UID-POD-00002",
+			UID:       "UID-POD-00002",
 			Labels: map[string]string{
 				"queue":         "root.a",
 				"applicationId": "app00001",
@@ -1113,7 +1113,7 @@ func TestPlaceholderTimeoutEvents(t *testing.T) {
 	managedApp := amprotocol.GetApplication("app00001")
 	assert.Assert(t, managedApp != nil)
 	app, valid := managedApp.(*Application)
-	if ! valid {
+	if !valid {
 		t.Fatal("application is expected to be of type Application")
 	}
 	assert.Equal(t, valid, true)
@@ -1131,7 +1131,7 @@ func TestPlaceholderTimeoutEvents(t *testing.T) {
 			ApplicationID: "app00001",
 			TaskID:        "task02",
 			Pod:           pod,
-			Placeholder: true,
+			Placeholder:   true,
 		},
 	})
 	assert.Assert(t, task1 != nil)
@@ -1140,9 +1140,13 @@ func TestPlaceholderTimeoutEvents(t *testing.T) {
 	_, taskErr := app.GetTask("task02")
 	if taskErr != nil {
 		// this should give an error
-		t.Error("expecting error got 'nil'")
+		t.Error("Task should exist")
 	}
-	task2 := task1.(*Task)
+	task2, task2Err := task1.(*Task)
+	if !task2Err {
+		// this should give an error
+		t.Error("task1 is expected to be of type Task")
+	}
 	task2.allocationUUID = UUID
 
 	// app must be running states
