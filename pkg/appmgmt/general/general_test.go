@@ -278,7 +278,7 @@ func TestAddPod(t *testing.T) {
 	}
 
 	// add a pending pod through the AM service
-	am.addPod(&pod)
+	am.AddPod(&pod)
 
 	managedApp := am.amProtocol.GetApplication("app00001")
 	assert.Assert(t, managedApp != nil)
@@ -314,7 +314,7 @@ func TestAddPod(t *testing.T) {
 		},
 	}
 
-	am.addPod(&pod1)
+	am.AddPod(&pod1)
 	assert.Equal(t, len(app.GetNewTasks()), 2)
 
 	// add another pod from another app
@@ -338,7 +338,7 @@ func TestAddPod(t *testing.T) {
 		},
 	}
 
-	am.addPod(&pod2)
+	am.AddPod(&pod2)
 	app02 := am.amProtocol.GetApplication("app00002")
 	assert.Assert(t, app02 != nil)
 	app, valid = toApplication(app02)
@@ -372,7 +372,7 @@ func TestUpdatePodWhenSucceed(t *testing.T) {
 	}
 
 	// add a pending pod through the AM service
-	am.addPod(&pod)
+	am.AddPod(&pod)
 
 	managedApp := am.amProtocol.GetApplication("app00001")
 	assert.Assert(t, managedApp != nil)
@@ -439,7 +439,7 @@ func TestUpdatePodWhenFailed(t *testing.T) {
 	}
 
 	// add a pending pod through the AM service
-	am.addPod(&pod)
+	am.AddPod(&pod)
 
 	// try update the pod to Failed status
 	newPod := v1.Pod{
@@ -498,7 +498,7 @@ func TestDeletePod(t *testing.T) {
 	}
 
 	// add a pending pod through the AM service
-	am.addPod(&pod)
+	am.AddPod(&pod)
 
 	managedApp := am.amProtocol.GetApplication("app00001")
 	assert.Assert(t, managedApp != nil)
